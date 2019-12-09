@@ -12,17 +12,30 @@ const CREDENTIALS = {
 //create google assistant object
 const assistant = new GoogleAssistant(CREDENTIALS);
 
+
 let furhat = new Furhat()
 furhat.init('localhost', '8080', 'api', (status, hat) => {
-    if (status === 'open') {
-        hat.subscribe("furhatos.event.senses.senseSpeech", event => console.log(event))
-        //hat.say('I am connected!')
+    if (status == "open") {
+        furhat.say('I am connected')
+        const askQuestion = (query) => {
+            console.log(query)
+            assistant.assist(query).then(({text}) => sendResponse(text))
+        }
 
-        //test furhat and assistant 
-        assistant.assist("what time is it?").then(({text}) => hat.say(text))
+        const sendResponse = (response) => {
+            const responseEvent = {
+                event_name: "AssistantResponse",
+                text: response
+            }
+            furhat.send(responseEvent)
+        }
+
+        furhat.subscribe("furhatos.app.gettingstarted.QueryEvent", event => askQuestion(event.query))
     }
-
 })
+
+
+
 
 
 

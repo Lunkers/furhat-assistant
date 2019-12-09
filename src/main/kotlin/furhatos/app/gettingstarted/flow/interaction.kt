@@ -1,8 +1,10 @@
 package furhatos.app.gettingstarted.flow
 
+import furhatos.app.gettingstarted.QueryEvent
 import furhatos.nlu.common.*
 import furhatos.flow.kotlin.*
 import furhatos.app.gettingstarted.nlu.*
+import furhatos.gestures.Gestures
 
 val Start : State = state(Interaction) {
 
@@ -15,10 +17,25 @@ val Start : State = state(Interaction) {
     }
 
     onResponse{
-        furhat.say("Let me think.") //skicka till assistant
+        furhat.say() {
+            + "Let me think"
+            + Gestures.GazeAway
+        }
+        send(QueryEvent(it.text)) // send query to assistant server
+        goto(Thinking)
+
     }
 
     onNoResponse {
         furhat.listen()
+    }
+
+
+}
+
+val Thinking : State = state(Interaction) {
+    onEvent("AssistantResponse") {
+        val response  = it.get("text") //get response text from received event
+        furhat.say(response as String)
     }
 }
