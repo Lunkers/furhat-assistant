@@ -35,7 +35,9 @@ val Start : State = state(Interaction) {
 
 val Thinking : State = state(Interaction) {
     onEvent("AssistantResponse") {
-        val response  = it.get("text") //get response text from received event
-        furhat.say(response as String)
+        val response = it.get("text") //get response text from received event
+        val text = if (response != null) response as String else "sorry, i did not find an answer"
+        furhat.say(text)
+        goto(Idle)
     }
 }

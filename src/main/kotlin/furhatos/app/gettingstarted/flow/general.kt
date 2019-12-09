@@ -16,6 +16,10 @@ val Idle: State = state {
 
     onEntry {
         furhat.attendNobody()
+        if ( users.count > 0) {
+            print("There are users here!")
+            furhat.listen()
+        }
     }
 
     onUserEnter {
