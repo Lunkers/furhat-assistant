@@ -2,9 +2,12 @@ package furhatos.app.gettingstarted.flow
 
 import furhatos.app.gettingstarted.nlu.RequestOptions
 import furhatos.flow.kotlin.*
+import furhatos.gestures.Gestures
+import furhatos.records.Location
 import furhatos.util.*
 
 val Idle: State = state {
+    var location = Location(0.0, 0.0, 1.0);
 
     init {
         furhat.setVoice(Language.ENGLISH_US, Gender.MALE)
@@ -17,13 +20,15 @@ val Idle: State = state {
     onEntry {
         furhat.attendNobody()
         if ( users.count > 0) {
-            print("There are users here!")
+            furhat.attendAll()
+            furhat.attend(location)
             furhat.listen()
         }
     }
 
     onUserEnter {
         furhat.attendAll()
+        furhat.attend(location)
         furhat.listen()
     }
 
