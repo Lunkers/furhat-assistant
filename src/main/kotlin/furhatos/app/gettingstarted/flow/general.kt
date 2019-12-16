@@ -23,6 +23,7 @@ val Idle: State = state {
     }
 
     onUserEnter {
+        furhat.attendAll()
         furhat.listen()
     }
 
