@@ -7,11 +7,10 @@ import furhatos.records.Location
 import furhatos.util.*
 
 val Idle: State = state {
-    var location = Location(0.0, 0.0, 1.0);
 
     init {
         furhat.setVoice(Language.ENGLISH_US, Gender.MALE)
-        
+        users.setSimpleEngagementPolicy(2.0, 3)
     }
 
     onEntry {

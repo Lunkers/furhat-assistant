@@ -5,8 +5,8 @@ import furhatos.util.Language
 
 class RequestOptions: Intent() {
     override fun getExamples(lang: Language): List<String> {
-        return listOf("Okay Bob", "Hi Bob", "Hello Bob", "Hey Bob", "Help us Bob", "Help me Bob",
-                "We need help Bob", "Ok Bob", "O.K Bob")
+        return listOf("Okay Steve", "Hi Steve", "Hello Steve", "Hey Steve", "Help us Steve", "Help me Steve",
+                "We need help Steve", "Ok Steve", "O.K Steve")
     }
 }
 
