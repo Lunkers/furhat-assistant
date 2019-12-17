@@ -1,6 +1,12 @@
 import Furhat from 'furhat-core';
 const GoogleAssistant = require('./googleassistant')
 const deviceCredentials = require('./devicecredentials.json')
+const argv = require('yargs').argv
+
+//setup variables from command line arguments
+const robotIp = argv.ip;
+const port = argv.port;
+console.log(`Ip: ${robotIp}, port: ${port}`);
 
 //setup assistant credentials
 const CREDENTIALS = {
@@ -14,7 +20,7 @@ const assistant = new GoogleAssistant(CREDENTIALS);
 
 
 let furhat = new Furhat()
-furhat.init('10.0.1.12', '80', 'api', (status, hat) => {
+furhat.init(robotIp, port, 'api', (status, hat) => {
     if (status == "open") {
         furhat.say('I am connected')
         const askQuestion = (query) => {
