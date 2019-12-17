@@ -14,7 +14,7 @@ const assistant = new GoogleAssistant(CREDENTIALS);
 
 
 let furhat = new Furhat()
-furhat.init('localhost', '8080', 'api', (status, hat) => {
+furhat.init('10.0.1.12', '80', 'api', (status, hat) => {
     if (status == "open") {
         furhat.say('I am connected')
         const askQuestion = (query) => {

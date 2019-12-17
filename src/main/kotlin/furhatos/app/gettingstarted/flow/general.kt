@@ -11,28 +11,22 @@ val Idle: State = state {
 
     init {
         furhat.setVoice(Language.ENGLISH_US, Gender.MALE)
-        if (users.count > 0) {
-            furhat.attend(users.random)
-            goto(Start)
-        }
+        
     }
 
     onEntry {
         furhat.attendNobody()
         if ( users.count > 0) {
-            furhat.attendAll()
-            furhat.attend(location)
             furhat.listen()
         }
     }
 
     onUserEnter {
-        furhat.attendAll()
-        furhat.attend(location)
         furhat.listen()
     }
 
     onResponse<RequestOptions>{
+
         furhat.attend(it.userId)
         goto(Start)
     }

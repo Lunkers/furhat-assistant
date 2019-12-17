@@ -4,6 +4,8 @@ import furhatos.app.gettingstarted.QueryEvent
 import furhatos.nlu.common.*
 import furhatos.flow.kotlin.*
 import furhatos.app.gettingstarted.nlu.*
+import furhatos.flow.kotlin.voice.CereprocVoice
+import furhatos.flow.kotlin.voice.PollyVoice
 import furhatos.gestures.Gestures
 
 val Start : State = state(Interaction) {
@@ -18,8 +20,9 @@ val Start : State = state(Interaction) {
 
     onResponse{
         furhat.say() {
+            Gestures.GazeAway
             + "Let me think"
-            + Gestures.GazeAway
+            + Gestures.Thoughtful
         }
         send(QueryEvent(it.text)) // send query to assistant server
         goto(Thinking)
@@ -36,7 +39,7 @@ val Start : State = state(Interaction) {
 val Thinking : State = state(Interaction) {
     onEvent("AssistantResponse") {
         val response = it.get("text") //get response text from received event
-        val text = if (response != null) response as String else "sorry, i did not find an answer"
+        val text = if (response != null) response as String else "sorry, do not know"
         furhat.say(text)
         goto(Idle)
     }
